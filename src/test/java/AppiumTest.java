@@ -1,15 +1,13 @@
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import static org.junit.jupiter.api.TestInstance.Lifecycle;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
+@TestInstance(Lifecycle.PER_CLASS)
 public class AppiumTest {
 
     private AppiumDriver driver;
@@ -17,7 +15,7 @@ public class AppiumTest {
     MainScreen mainScreen;
 
 
-    @BeforeEach
+    @BeforeAll
     public void setUp() throws MalformedURLException {
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("appium:automationName", "UiAutomator2");
@@ -31,7 +29,7 @@ public class AppiumTest {
     }
 
     @Test
-    public void emptyText() {
+    public void emptyTextTest() {
         String beforeMainText = mainScreen.mainText.getText();
 
         mainScreen.input.sendKeys(" ");
@@ -40,7 +38,17 @@ public class AppiumTest {
         Assertions.assertEquals(beforeMainText, mainScreen.mainText.getText());
     }
 
-    @AfterEach
+    @Test
+    public void activityTextTest() {
+        String text = "Hello World!";
+
+        mainScreen.input.sendKeys(text);
+        mainScreen.buttonActivity.click();
+
+        Assertions.assertEquals(text, mainScreen.activityText.getText());
+    }
+
+    @AfterAll
     public void tearDown() {
         driver.quit();
     }

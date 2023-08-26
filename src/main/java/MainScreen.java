@@ -18,6 +18,13 @@ public class MainScreen {
     @AndroidFindBy(id = "ru.netology.testing.uiautomator:id/buttonChange")
     public MobileElement buttonChange;
 
+    @AndroidFindBy(id = "ru.netology.testing.uiautomator:id/buttonActivity")
+    public MobileElement buttonActivity;
+
+    @AndroidFindBy(id = "ru.netology.testing.uiautomator:id/text")
+    public MobileElement activityText;
+
+
     private AppiumDriver driver;
 
     public MainScreen(AppiumDriver driver) {
